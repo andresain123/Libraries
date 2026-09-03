@@ -1,0 +1,12 @@
+// Standalone Gradle build for the Kotlin / Jetpack Compose port.
+//
+// Self-contained on purpose: it borrows nothing from a parent build, so the
+// directory opens in Android Studio on its own, the same way
+// ports/ios/ThinkingOrbsKit opens in Xcode. Versions live in
+// gradle/libs.versions.toml.
+plugins {
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+}

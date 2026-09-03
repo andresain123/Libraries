@@ -1,0 +1,46 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+}
+
+android {
+    namespace = 'com.jakubantalik.thinkingorbs'
+    compileSdk libs.versions.compileSdk.get().toInteger()
+
+    defaultConfig {
+        minSdk libs.versions.minSdk.get().toInteger()
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        // The golden fixture is read from the package's canonical spec/, not a
+        // vendored copy -- so a regenerated spec cannot silently drift out of
+        // sync with what this port is tested against.
+        test.resources.srcDirs += '../../../spec'
+    }
+}
+
+dependencies {
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.foundation
+    implementation libs.compose.ui
+    implementation libs.compose.runtime
+
+    testImplementation libs.junit
+    testImplementation libs.gson
+}
